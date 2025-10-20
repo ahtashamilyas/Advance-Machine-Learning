@@ -205,3 +205,27 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Data files (keep directory structure but ignore large data files)
+data/*.csv
+data/*.xlsx
+data/*.json
+data/*.parquet
+data/*.txt
+data/*.zip
+data/*.gz
+data/raw/
+data/processed/
+data/external/
+
+# Model files (keep directory structure but ignore trained models)
+models/**/*.pkl
+models/**/*.h5
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.joblib
+
+# Keep README files and .gitkeep
+!**/.gitkeep
+!**/README.md

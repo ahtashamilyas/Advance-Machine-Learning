@@ -143,6 +143,16 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+#PyCham enviroment generated stuff
+Lib
+Lib/*
+Scripts
+Scripts/*
+pyvenv.cfg
+.iml
+.xml
+.idea
+.idea/*
 
 # Spyder project settings
 .spyderproject

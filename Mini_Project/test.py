@@ -10,7 +10,7 @@ from EEGModels.EEGModels import EEGNet
 
 if __name__ == '__main__':
     runs = [6, 10, 14]  # Motor imagery: hands vs feet
-    subjects = [i for i in range(1, 30)]
+    subjects = [i for i in range(1, 40)]
     path = "E:\\Documents\\Uni\\Master\\AdvancedML\\Mini_Project\\Data"
 
     # Load files
@@ -28,8 +28,9 @@ if __name__ == '__main__':
     # This tells MNE where each electrode is on the scalp
 
     eegbci.standardize(raw)
-    montage = mne.channels.make_standard_montage('standard_1005')
+    montage = mne.channels.make_standard_montage('standard_1020')
     raw.set_montage(montage)
+    raw.resample(sfreq=127)
 
     # Check sample rate
     print('sample rate:', raw.info['sfreq'], 'Hz')
@@ -40,6 +41,7 @@ if __name__ == '__main__':
     # Notice that the lowpass and highpass values have changed
     print(raw.info)
 
+
     # Select EEG channels
     picks = pick_types(raw.info,
                        meg=False,
@@ -47,7 +49,7 @@ if __name__ == '__main__':
                        stim=False,
                        eog=False,
                        exclude='bads')
-
+    picks = picks
     tmin, tmax = 1., 2.
     event_id = dict(hands=2, feet=3)
 
@@ -70,8 +72,11 @@ if __name__ == '__main__':
     print('events x channels x samples:', epochs._data.shape)
 
     epochs_data = 1e6 * epochs.get_data()
-
-    labels = epochs.events[:, -1]
+    #remove the 0 in the middle collum to make it shape events x samples since it starts as events x 0 x samples
+    labels = epochs.events[:,:-1]
+    print(labels.shape)
+    print(labels)
+    print(type(labels))
 
 
     print("test")
